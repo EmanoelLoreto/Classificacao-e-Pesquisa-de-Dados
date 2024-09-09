@@ -1,25 +1,35 @@
-const array = [8, 3, 2, 6, 1, 7, 9]
+// const array = [8, 3, 2, 6, 1, 7, 9]
 // [8, 3, 2, 6, 1, 7, 9] index = 8, index2 + 1 = 3
 // [3, 8, 2, 6, 1, 7, 9]
 // [2, 3, 8, 6, 1, 7, 9]
 
-console.log('Array: ', array);
+const generateRandomArray = (size, min, max) => {
+  return Array.from({ length: size }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+}
 
-const findLower = (index, index2) => {
-  console.log('index: ', index);
-  console.log('index2: ', index2);
-  
-  if (array[index] > array[index2])  {
-    findLower(index2, index - 1)
-  } else {
-    console.log('Substituir: ', array[index], 'na posição: ', index, 'Por ', array[index2 + 1]);
+let array = generateRandomArray(1000, 1, 1000);
+
+console.log('Array original: ', array);
+
+const insertionSort = (arr) => {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
     
-    array.splice(index - 1, 0, array[index])
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
+    }
+    arr[j + 1] = key;
   }
 }
 
-for (let index = 0; index < array.length; index++) {
-  findLower(index, index + 1)
-}
+console.log('Array: ', array);
 
-console.log('Array ordernado: ', array);
+console.time('insertionSort');
+
+insertionSort(array);
+
+console.log('Array ordenado: ', array);
+
+console.timeEnd('insertionSort');

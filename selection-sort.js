@@ -4,10 +4,19 @@
 // • Isso é feito para todas as posições
 
 // const array = [23, 4, 67, -8, 90, 54, 21]
-// const array = [1, 2, 3, 4, 5, 6, 7, 8]
-const array = [8, 7, 6 , 5, 4, 3, 2, 1]
+// let array = [1, 2, 3, 4, 5, 6, 7, 8]
+// const array = [8, 7, 6 , 5, 4, 3, 2, 1]
+let array = [1, 1, 2, 2, 3, 4, 5, 6, 7, 8]
+
+// const generateRandomArray = (size, min, max) => {
+//   return Array.from({ length: size }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+// }
+
+// let array = generateRandomArray(1000, 1, 1000);
 
 console.log('Array: ', array);
+
+console.time('selectionSort');
 
 for (let index = 0; index < array.length; index++) {
   let menor = array[index];
@@ -25,3 +34,5 @@ for (let index = 0; index < array.length; index++) {
 }
 
 console.log('Array ordenado: ', array);
+
+console.timeEnd('selectionSort');

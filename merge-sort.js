@@ -4,14 +4,13 @@
 // • Combina 2 conjuntos de forma a obter 1 conjunto maior e ordenado
 // • Processo se repete até que exista apenas 1 conjunto.
 
-let array = [38, 27, 43, 3, 9, 82, 10]
+const generateRandomArray = (size, min, max) => {
+  return Array.from({ length: size }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+}
 
-console.log('Array: ', array);
+let array = generateRandomArray(1000, 1, 1000);
 
 const merge = (left, right) => {
-  console.log('left: ', left);
-  console.log('right: ', right);
-
   let resultArray = [], leftIndex = 0, rightIndex = 0;
 
   while (leftIndex < left.length && rightIndex < right.length) {
@@ -45,7 +44,12 @@ const mergeSort = (arr) => {
   )
 }
 
-array = mergeSort(array)
+console.log('Array: ', array);
 
-console.log(array);
+console.time('mergeSort');
 
+array = mergeSort(array);
+
+console.log('Array ordenado: ', array);
+
+console.timeEnd('mergeSort');
