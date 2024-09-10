@@ -1,9 +1,13 @@
-Clonar o projeto
+### Clonar o projeto
 $ git clone https://github.com/EmanoelLoreto/Classificacao-e-Pesquisa-de-Dados.git
 
-Acessar a pasta
+### Acessar a pasta
 $ cd Classificacao-e-Pesquisa-de-Dados
 
-Executar o menu interativo para utilizar todos os algoritimos de ordenação
+### Executar o menu interativo para utilizar todos os algoritimos de ordenação
 $ node ./menu-ordenacao.js
 
+
+### Site para ver as animações
+
+https://visualgo.net/en/sorting
