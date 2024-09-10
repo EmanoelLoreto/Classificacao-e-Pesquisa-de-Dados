@@ -51,6 +51,7 @@ async function scrapeNuuvem() {
 
     fs.writeFileSync('jogos_ordenados.txt', jogosOrdenadosTexto, 'utf-8');
     console.log('Lista de jogos ordenada por preço salva em jogos_ordenados.txt');
+
   } catch (error) {
     console.error('Erro ao fazer o scraping:', error);
   }
