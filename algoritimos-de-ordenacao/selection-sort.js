@@ -14,25 +14,31 @@ let array = [1, 1, 2, 2, 3, 4, 5, 6, 7, 8]
 
 // let array = generateRandomArray(1000, 1, 1000);
 
-console.log('Array: ', array);
+// console.log('Array: ', array);
 
-console.time('selectionSort');
+// console.time('selectionSort');
 
-for (let index = 0; index < array.length; index++) {
-  let menor = array[index];
-  let indexMenor = index;
+const selectionSort = (array) => {
+  for (let index = 0; index < array.length; index++) {
+    let menor = array[index];
+    let indexMenor = index;
 
-  for (let index2 = index; index2 < array.length; index2++) {
-    if (array[index2 + 1] < array[index] && array[index2 + 1] < menor) {
-      menor = array[index2 + 1]
-      indexMenor = index2 + 1
+    for (let index2 = index; index2 < array.length; index2++) {
+      if (array[index2 + 1] < array[index] && array[index2 + 1] < menor) {
+        menor = array[index2 + 1]
+        indexMenor = index2 + 1
+      }
     }
+
+    array[indexMenor] = array[index]
+    array[index] = menor
   }
 
-  array[indexMenor] = array[index]
-  array[index] = menor
+  return array
 }
 
-console.log('Array ordenado: ', array);
+// console.log('Array ordenado: ', array);
 
-console.timeEnd('selectionSort');
+// console.timeEnd('selectionSort');
+
+export default selectionSort;
