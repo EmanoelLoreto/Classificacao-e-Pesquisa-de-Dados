@@ -1,9 +1,9 @@
 Clonar o projeto
-$ `git clone https://github.com/EmanoelLoreto/Classificacao-e-Pesquisa-de-Dados.git`
+$ git clone https://github.com/EmanoelLoreto/Classificacao-e-Pesquisa-de-Dados.git
 
 Acessar a pasta
-$ `cd Classificacao-e-Pesquisa-de-Dados`
+$ cd Classificacao-e-Pesquisa-de-Dados
 
 Executar o menu interativo para utilizar todos os algoritimos de ordenação
-$ `node ./menu-ordenacao.js`
+$ node ./menu-ordenacao.js
 
