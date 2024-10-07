@@ -1,17 +1,24 @@
-import axios from 'axios'
-import { load } from 'cheerio'
-import fs from 'fs'
-import mergeSort from './merge-sort.js';
+import axios from 'axios';
+import { load } from 'cheerio';
+import fs from 'fs';
+import path from 'path';
 
 const baseUrl = 'https://www.nuuvem.com/br-pt/catalog/platforms/pc/price/promo/sort/bestselling/sort-mode/desc/page/';
 
 async function scrapeNuuvem() {
-  const jogos = [];
+  let jogos = [];
+  let numberOfPages = 10;
 
   try {
-    for (let page = 1; page <= 3; page++) {
+    console.time('\nPartições criadas salvas em disco.');
+    for (let page = 1; page <= numberOfPages; page++) {
+      console.log('\n')
+      console.time(`Tempo para buscar a página ${page}`)
+
       const url = `${baseUrl}${page}`;
       const { data } = await axios.get(url);
+
+      console.timeEnd(`Tempo para buscar a página ${page}`)
       
       const $ = load(data);
 
@@ -33,36 +40,26 @@ async function scrapeNuuvem() {
       });
     }
 
-    console.log('Total de jogos encontrados:', jogos.length);
-    console.log('3 primeiros jogos encontrados:', jogos.slice(0, 3));
+    salvarJogos(jogos);
 
-    return jogos;
+    console.timeEnd('\nPartições criadas salvas em disco.');
+    return;
   } catch (error) {
     console.error('Erro ao fazer o scraping:', error);
   }
 }
 
-function processAndSaveJogos(jogos) {
-  const jogosTexto = jogos.map(jogo => {
-    return `Título: ${jogo.titulo}\nPreço: ${jogo.preco}\nLink: ${jogo.link}\n`;
-  }).join('\n');
-
-  fs.writeFileSync('jogos.txt', jogosTexto, 'utf-8');
-  console.log('Lista de jogos salva em jogos.txt');
+function salvarJogos(jogos) {
+  console.time('Tempo para salvar todos os jogos');
   
-  const jogosOrdenados = mergeSort(jogos);
-
-  const jogosOrdenadosTexto = jogosOrdenados.map(jogo => {
-    return `Título: ${jogo.titulo}\nPreço: ${jogo.preco}\nLink: ${jogo.link}\n`;
-  }).join('\n');
-
-  fs.writeFileSync('jogos_ordenados.txt', jogosOrdenadosTexto, 'utf-8');
-  console.log('Lista de jogos ordenada por preço salva em jogos_ordenados.txt');
+  const filePath = path.join('./', 'jogos-nao-ordenados.json');
+  
+  fs.writeFileSync(filePath, JSON.stringify(jogos, null, 2), 'utf-8');
+  
+  console.timeEnd('Tempo para salvar todos os jogos');
+  console.log(`Total de jogos salvos: ${jogos.length}`);
 }
 
-async function main() {
-  const jogos = await scrapeNuuvem();
-  processAndSaveJogos(jogos);
-}
+console.log('\nExecutando o Scrap nas 10 primeiras páginas da NuvemShop');
 
-main();
+await scrapeNuuvem()
